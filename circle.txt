@@ -1,0 +1,35 @@
+while(i < all->v_size)
+	{
+		j = 0;
+		while (j < all->h_size)
+		{
+			if (pow(j-all->hor_move, 2) + pow(i-all->vert_move, 2) < pow(100, 2))
+				my_mlx_pixel_put(&all->img, j++, i, all->color);
+			else if (pow(j-(all->hor_move + 100), 2) + pow(i-(all->vert_move + 100), 2) < pow(100, 2))
+				my_mlx_pixel_put(&all->img, j++, i, get_oposite(all->color));
+			else
+				my_mlx_pixel_put(&all->img, j++, i, 0x00000000);
+		}
+		i++;
+	}
+
+void	get_next_color(t_alldata *all)
+{
+	static int red = 255;
+	static int green = 0;
+	static int blue = 0;
+	all->color = create_trgb(0, red, green, blue);
+	if (red == 255 && green != 255)
+		green++;
+	else if (green == 255 && red > 0)
+		red--;
+	else if (green == 255 && blue != 255)
+		blue++;
+	else if (blue == 255 && green > 0)
+		green--;
+	else
+	{
+		red = 255;
+		blue = 0;
+	}
+}
