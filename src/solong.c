@@ -56,7 +56,6 @@ int	render_next_frame(t_alldata *all)
 	int xpm_width;
 
 	i = 0;
-	get_next_color(all);
 	mlx_put_image_to_window(all->mlxwin.mlx, all->mlxwin.win, all->img.img, 0, 0);
 	all->sprites.background = mlx_xpm_file_to_image(all->mlxwin.mlx, "../sprites/sprites/background.xpm", &xpm_height, &xpm_width);
 	all->sprites.wall = mlx_xpm_file_to_image(all->mlxwin.mlx, "../sprites/sprites/wall_block2.xpm", &xpm_height, &xpm_width);
