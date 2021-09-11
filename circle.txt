@@ -3,9 +3,9 @@ while(i < all->v_size)
 		j = 0;
 		while (j < all->h_size)
 		{
-			if (pow(j-all->hor_move, 2) + pow(i-all->vert_move, 2) < pow(100, 2))
+			if (pow(j-all->char_start_x, 2) + pow(i-all->char_start_y, 2) < pow(100, 2))
 				my_mlx_pixel_put(&all->img, j++, i, all->color);
-			else if (pow(j-(all->hor_move + 100), 2) + pow(i-(all->vert_move + 100), 2) < pow(100, 2))
+			else if (pow(j-(all->char_start_x + 100), 2) + pow(i-(all->char_start_y + 100), 2) < pow(100, 2))
 				my_mlx_pixel_put(&all->img, j++, i, get_oposite(all->color));
 			else
 				my_mlx_pixel_put(&all->img, j++, i, 0x00000000);

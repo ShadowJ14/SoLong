@@ -1,7 +1,8 @@
 NAME = ./solong
+rwildcard=$(foreach d,$(wildcard $(1:=/*)),$(call rwildcard,$d,$2) $(filter $(subst *,%,$2),$d))
 INCLUDE_DIRS := includes
 INCLUDES := $(addprefix -I, $(INCLUDE_DIRS))
-SRC = $(wildcard src/*.c)
+SRC = $(call rwildcard,src,*.c)
 OBJ := $(SRC:.c=.o)
 RM = rm -f
 MAKE = make
@@ -31,7 +32,7 @@ fclean: clean
 		$(MAKE) fclean -C ./libs/libft
 		$(RM)   $(NAME)
 
-re: fclean  $(NAME)
+re: fclean  all
 
 bonus: $(NAME)
 

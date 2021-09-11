@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lprates <lprates@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 21:00:07 by lprates           #+#    #+#             */
-/*   Updated: 2021/02/27 11:44:23 by lprates          ###   ########.fr       */
+/*   Updated: 2021/09/11 21:23:26 by lprates          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@
 
 int				get_next_line(int fd, char **line);
 unsigned int	ft_strlcpy(char *dest, char *src, unsigned int size);
-char			*ft_strjoin(char const *s1, char const *s2);
+char			*gnl_strjoin(char const *s1, char const *s2);
 void			ft_putstr(char *str);
 char			*ft_strdup(char *src);
-size_t			ft_strlen(const char *str);
+size_t			gnl_strlen(const char *str);
 int				has_line(char *keep);
 char			*join_str(char const *s1, char const *s2);
 

@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lprates <lprates@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 21:00:11 by lprates           #+#    #+#             */
-/*   Updated: 2021/02/27 11:37:25 by lprates          ###   ########.fr       */
+/*   Updated: 2021/09/11 21:22:37 by lprates          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-size_t		ft_strlen(const char *str)
+size_t	gnl_strlen(const char *str)
 {
 	int i;
 
@@ -26,7 +26,7 @@ size_t		ft_strlen(const char *str)
 	return (i);
 }
 
-static char	*loc_strcat(char *dest, char *src)
+static char		*loc_strcat(char *dest, char *src)
 {
 	int i;
 	int j;
@@ -47,13 +47,13 @@ static char	*loc_strcat(char *dest, char *src)
 	return (dest);
 }
 
-char		*ft_strjoin(char const *s1, char const *s2)
+char		*gnl_strjoin(char const *s1, char const *s2)
 {
 	char *join;
 
 	if (!s1 && !s2)
 		return (NULL);
-	if (!(join = malloc(ft_strlen(s1) + ft_strlen(s2) + 1)))
+	if (!(join = malloc(gnl_strlen(s1) + gnl_strlen(s2) + 1)))
 		return (NULL);
 	join[0] = 0;
 	if (s1)

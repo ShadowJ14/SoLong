@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lprates <lprates@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 20:59:26 by lprates           #+#    #+#             */
-/*   Updated: 2021/02/27 11:39:45 by lprates          ###   ########.fr       */
+/*   Updated: 2021/09/11 21:23:01 by lprates          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*trim_keep(char *keep)
 		free(keep);
 		return (0);
 	}
-	if (!(tmp = malloc(sizeof(char) * ((ft_strlen(keep) - i) + 1))))
+	if (!(tmp = malloc(sizeof(char) * ((gnl_strlen(keep) - i) + 1))))
 		return (0);
 	i++;
 	while (keep[i])
@@ -80,7 +80,7 @@ int		get_next_line(int fd, char **line)
 			return (-1);
 		}
 		buffer[reader] = 0;
-		keep[fd] = ft_strjoin(keep[fd], buffer);
+		keep[fd] = gnl_strjoin(keep[fd], buffer);
 	}
 	free(buffer);
 	*line = check_keep(keep[fd]);
