@@ -6,7 +6,7 @@
 /*   By: lprates <lprates@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/12 17:35:36 by lprates           #+#    #+#             */
-/*   Updated: 2021/09/12 20:49:33 by lprates          ###   ########.fr       */
+/*   Updated: 2021/09/12 21:21:48 by lprates          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ void	put_elements(t_alldata *all, int x, int y)
 		if (all->element[count].posx == x && all->element[count].posy == y)
 		{
 			if (all->element[count].type == 'C')
-				mlx_put_image_to_window(all->mlxwin.mlx, all->mlxwin.win, COLLECT, x, y);
+				mlx_put_image_to_window(all->mlxwin.mlx, all->mlxwin.win, all->sprites.collect, x, y);
 			if (all->element[count].type == '1')
-				mlx_put_image_to_window(all->mlxwin.mlx, all->mlxwin.win, WALL, x, y);
+				mlx_put_image_to_window(all->mlxwin.mlx, all->mlxwin.win, all->sprites.wall, x, y);
 			if (all->element[count].type == 'E')
-				mlx_put_image_to_window(all->mlxwin.mlx, all->mlxwin.win, END_SPRITE, x, y);
+				mlx_put_image_to_window(all->mlxwin.mlx, all->mlxwin.win, all->sprites.end_portal, x, y);
 			break;
 		}
 		count++;
