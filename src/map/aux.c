@@ -6,7 +6,7 @@
 /*   By: lprates <lprates@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/11 19:38:07 by lprates           #+#    #+#             */
-/*   Updated: 2021/09/11 22:39:22 by lprates          ###   ########.fr       */
+/*   Updated: 2021/09/12 20:26:50 by lprates          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,13 @@ int		parse_map(t_alldata *all, int fd)
 	while (finish == 1)
 	{
 		all->h_size = ft_strlen(all->map[all->v_size]);
-		printf("line %i string: %s\n", all->v_size, all->map[all->v_size]);
+		//printf("line %i string: %s\n", all->v_size, all->map[all->v_size]);
 		all->v_size++;
 		nsi = sizeof(char **) * (all->v_size + 1);
 		//finish = get_next_line(fd, map);
 		if (finish == -1)
 			error_handler(4);
 		all->map = ft_realloc((void **)&all->map, nsi);
-		printf("Aqui!");
 		finish = get_next_line(fd, &all->map[all->v_size]);
 	}
 	return (1);

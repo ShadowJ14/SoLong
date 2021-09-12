@@ -6,7 +6,7 @@
 /*   By: lprates <lprates@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/11 19:41:21 by lprates           #+#    #+#             */
-/*   Updated: 2021/09/11 23:47:58 by lprates          ###   ########.fr       */
+/*   Updated: 2021/09/12 20:47:38 by lprates          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,30 +69,25 @@ int	render_next_frame(t_alldata *all)
 {
 	int i;
 	int j;
-	int xpm_height;
-	int xpm_width;
 
 	i = 0;
 	mlx_destroy_image(all->mlxwin.mlx, all->img.img);
-	all->img.img = mlx_new_image(all->mlxwin.mlx, all->h_size, all->v_size);
-	mlx_put_image_to_window(all->mlxwin.mlx, all->mlxwin.win, all->img.img, 0, 0);
-	all->img.addr = mlx_get_data_addr(all->img.img, &all->img.bits_per_pixel, &all->img.line_length,
-                                 &all->img.endian);
-	all->sprites.background = mlx_xpm_file_to_image(all->mlxwin.mlx, BACKGROUND, &xpm_height, &xpm_width);
-	all->sprites.wall = mlx_xpm_file_to_image(all->mlxwin.mlx, WALL, &xpm_height, &xpm_width);
+	ft_repeat_init(all);
 	while (i < all->v_size)
 	{
 		j = 0;
 		while (j < all->h_size)
 		{
 			mlx_put_image_to_window(all->mlxwin.mlx, all->mlxwin.win, all->sprites.background, j, i);
-			mlx_put_image_to_window(all->mlxwin.mlx, all->mlxwin.win, all->sprites.main_char, all->char_start_x, all->char_start_y);
-			if (i == 0 || j == 0 || j == all->h_size - xpm_width || i == all->v_size - xpm_height)
-				mlx_put_image_to_window(all->mlxwin.mlx, all->mlxwin.win, all->sprites.wall, j, i);
-			j += (xpm_width);
+			//write(1, "Aqui\n", 5);
+			put_elements(all, j, i);
+			/*if (i == 0 || j == 0 || j == all->h_size - 32 || i == all->v_size - 32)
+				mlx_put_image_to_window(all->mlxwin.mlx, all->mlxwin.win, all->sprites.wall, j, i);*/
+			j += 32;
 		}
-		i += (xpm_height);
+		i += 32;
 	}
+		mlx_put_image_to_window(all->mlxwin.mlx, all->mlxwin.win, all->sprites.main_char, all->char_start_x, all->char_start_y);
 	//mlx_put_image_to_window(all->mlxwin.mlx, all->mlxwin.win, background, 0, 0);
 	return (0);
 }
@@ -105,8 +100,8 @@ int	ft_close(t_alldata *all)
 int	main(int argc, char *argv[])
 {
 	t_alldata *all;
-	int xpm_height;
-	int xpm_width;
+	//int xpm_height;
+	//int xpm_width;
 
 	all = malloc(sizeof(t_alldata));
 	ft_handle_args(all, argc, argv[1]);
@@ -118,7 +113,7 @@ int	main(int argc, char *argv[])
 				all->char_start_y = 32 * i;
 			}
 	ft_init(all);
-	all->sprites.main_char = mlx_xpm_file_to_image(all->mlxwin.mlx, CHAR_START, &xpm_height, &xpm_width);
+	//all->sprites.main_char = mlx_xpm_file_to_image(all->mlxwin.mlx, CHAR_START, &xpm_height, &xpm_width);
 	// have to check how to implement auto repeat
 	//mlx_do_key_autorepeaton(all->mlxwin.mlx);
 	// loop that keeps rendering the next frame

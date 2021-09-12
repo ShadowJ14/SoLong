@@ -6,7 +6,7 @@
 /*   By: lprates <lprates@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 12:31:49 by lprates           #+#    #+#             */
-/*   Updated: 2021/09/12 00:27:50 by lprates          ###   ########.fr       */
+/*   Updated: 2021/09/12 20:34:56 by lprates          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@
 # define CHAR_RIGHT1 "../sprites/sprites/char_right1.xpm"
 # define CHAR_RIGHT2 "../sprites/sprites/char_right2.xpm"
 # define CHAR_START "../sprites/sprites/char_downstop.xpm"
+# define END_SPRITE "../sprites/sprites/portal.xpm"
+# define COLLECT "../sprites/sprites/ice-cream.xpm"
 # define ELEMENTS "1CEP"
 
 typedef struct  s_vars {
@@ -53,9 +55,11 @@ typedef struct  s_data {
 
 typedef struct	s_sprites
 {
-	void *background;
-	void *wall;
-	void *main_char;
+	void	*background;
+	void	*wall;
+	void	*main_char;
+	void	*collect;
+	void	*end_portal;
 }				t_sprites;
 
 typedef struct	s_element
@@ -97,5 +101,9 @@ int		parse_map(t_alldata *all, int fd);
 // init
 void	ft_handle_args(t_alldata *all, int argc, char *argv);
 void	ft_init(t_alldata *all);
+void	ft_repeat_init(t_alldata *all);
+
+// map
+void	put_elements(t_alldata *all, int x, int y);
 
 #endif
