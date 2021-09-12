@@ -6,7 +6,7 @@
 /*   By: lprates <lprates@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/11 23:19:37 by lprates           #+#    #+#             */
-/*   Updated: 2021/09/12 20:42:15 by lprates          ###   ########.fr       */
+/*   Updated: 2021/09/12 21:46:03 by lprates          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void	ft_grab_elements(t_alldata *all)
 			if (ft_strchr(ELEMENTS, all->map[x][y]))
 			{
 	//write(1, "Aqui\n", 5);
-				all->element[count].posx = x * 32;
 				all->element[count].posy = y * 32;
+				all->element[count].posx = x * 32;
 				all->element[count].type = all->map[x][y];
 				//printf("element nr: %i\ntype: %c\nposx: %i\nposy: %i\n", count, all->element[count].type, all->element[count].posx, all->element[count].posy);
 				count++;
@@ -38,6 +38,7 @@ void	ft_grab_elements(t_alldata *all)
 			}
 		}
 	}
+	all->element[count].type = 0;
 }
 
 void	ft_handle_args(t_alldata *all, int argc, char *argv)
@@ -74,7 +75,7 @@ void	ft_init(t_alldata *all)
 	int placeholder_h;
 	int placeholder_w;
 
-	all->h_size = (all->h_size + 1) * 32;
+	all->h_size = (all->h_size) * 32;
 	all->v_size = (all->v_size + 1) * 32;
 	all->mlxwin.mlx = mlx_init();
 	all->mlxwin.win = mlx_new_window(all->mlxwin.mlx, all->h_size, all->v_size, "Hello world!");

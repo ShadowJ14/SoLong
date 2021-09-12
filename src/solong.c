@@ -6,7 +6,7 @@
 /*   By: lprates <lprates@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/11 19:41:21 by lprates           #+#    #+#             */
-/*   Updated: 2021/09/12 21:24:28 by lprates          ###   ########.fr       */
+/*   Updated: 2021/09/12 21:44:29 by lprates          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,9 @@ int	render_next_frame(t_alldata *all)
 		{
 			mlx_put_image_to_window(all->mlxwin.mlx, all->mlxwin.win, all->sprites.background, j, i);
 			//write(1, "Aqui\n", 5);
-			//put_elements(all, j, i);
-			if (i == 0 || j == 0 || j == all->h_size - 32 || i == all->v_size - 32)
-				mlx_put_image_to_window(all->mlxwin.mlx, all->mlxwin.win, all->sprites.wall, j, i);
+			put_elements(all, j, i);
+			/*if (i == 0 || j == 0 || j == all->h_size - 32 || i == all->v_size - 32)
+				mlx_put_image_to_window(all->mlxwin.mlx, all->mlxwin.win, all->sprites.wall, j, i);*/
 			j += 32;
 		}
 		i += 32;

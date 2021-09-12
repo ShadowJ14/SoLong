@@ -6,7 +6,7 @@
 /*   By: lprates <lprates@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/12 17:35:36 by lprates           #+#    #+#             */
-/*   Updated: 2021/09/12 21:21:48 by lprates          ###   ########.fr       */
+/*   Updated: 2021/09/12 21:45:03 by lprates          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ void	put_elements(t_alldata *all, int x, int y)
 {
 	int count;
 
-	write(1, "Aqui\n", 5);
-	while(&all->element[count])
+	count = 0;
+	while(all->element[count].type != 0)
 	{
-		if (all->element[count].posx == x && all->element[count].posy == y)
+		if (all->element[count].posx == y && all->element[count].posy == x)
 		{
 			if (all->element[count].type == 'C')
 				mlx_put_image_to_window(all->mlxwin.mlx, all->mlxwin.win, all->sprites.collect, x, y);
