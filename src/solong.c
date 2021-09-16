@@ -37,27 +37,27 @@ static void	change_sprite(char *file1, char *file2, t_alldata *all)
 int             key_hook(int keycode, t_alldata *all)
 {
     printf("Hello, this is key: %i\n", keycode);
-	if (keycode == 53)
+	if (keycode == 53 || keycode == 65307)
 	{
 		mlx_destroy_window(all->mlxwin.mlx, all->mlxwin.win);
 		exit(1);
 	}
-	if (keycode == 13)
+	if (keycode == 13 || keycode == 119)
 	{
 		all->char_start_y -= 32;
 		change_sprite(CHAR_UP1, CHAR_UP2, all);
 	}
-	if (keycode == 1)
+	if (keycode == 1 || keycode == 115)
 	{
 		all->char_start_y += 32;
 		change_sprite(CHAR_DOWN1, CHAR_DOWN2, all);
 	}
-	if (keycode == 0)
+	if (keycode == 0 || keycode == 97)
 	{
 		all->char_start_x -= 32;
 		change_sprite(CHAR_LEFT1, CHAR_LEFT2, all);
 	}
-	if (keycode == 2)
+	if (keycode == 2 || keycode == 100)
 	{
 		all->char_start_x += 32;
 		change_sprite(CHAR_RIGHT1, CHAR_RIGHT2, all);

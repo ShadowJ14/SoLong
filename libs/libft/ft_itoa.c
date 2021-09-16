@@ -45,14 +45,11 @@ static char	*loc_swap(char *ret, size_t i)
 	return (ret);
 }
 
-static char	*loc_malloc(long t, size_t n)
+static char	*loc_malloc(long t)
 {
 	char	*ret;
 
-	if (n < 0)
-		ret = malloc(c_int(t) + 2);
-	else
-		ret = malloc(c_int(t) + 1);
+	ret = malloc(c_int(t) + 1);
 	return (ret);
 }
 
@@ -64,7 +61,7 @@ char	*ft_itoa(int n)
 
 	i = 0;
 	t = n;
-	ret = loc_malloc(t, n);
+	ret = loc_malloc(t);
 	if (!ret)
 		return (NULL);
 	if (n < 0)
