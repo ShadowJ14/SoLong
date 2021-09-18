@@ -6,7 +6,7 @@
 /*   By: lprates <lprates@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 12:31:49 by lprates           #+#    #+#             */
-/*   Updated: 2021/09/18 05:03:33 by lprates          ###   ########.fr       */
+/*   Updated: 2021/09/18 15:18:57 by lprates          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <math.h>
-# include "../libft/libft.h"
-# include "../libft/get_next_line.h"
+# include "../libs/libft/libft.h"
+# include "../libs/libft/get_next_line.h"
 # include "mlx.h"
 # define WALL "./sprites/wall_block2.xpm"
 # define BACKGROUND "./sprites/background.xpm"
@@ -39,7 +39,15 @@
 # define END_SPRITE "./sprites/portal.xpm"
 # define COLLECT "./sprites/ice-cream.xpm"
 # define ELEMENTS "1CEP"
-# define END_MESSAGE "Congraturation! This story is Happy End! Thank You."
+# define END_MESSAGE "Congraturation! This story is Happy End! Thank You.\n"
+# define W 13
+# define S 1
+# define A 0
+# define D 2
+# define MLX_PTR all->mlxwin.mlx
+# define WIN_PTR all->mlxwin.win
+# define PUT_IMG_TO_WIN mlx_put_image_to_window
+# define XPM_TO_IMG mlx_xpm_file_to_image
 
 typedef struct  s_vars {
     void        *mlx;
@@ -56,9 +64,9 @@ typedef struct  s_data {
 
 typedef struct	s_sprites
 {
-	void	*background;
+	void	*ground;
 	void	*wall;
-	void	*main_char;
+	void	*guy;
 	void	*collect;
 	void	*end_portal;
 }				t_sprites;
@@ -76,13 +84,14 @@ typedef struct	s_alldata{
 	int			color;
 	int			v_size;
 	int 		h_size;
-	int			char_start_y;
-	int			char_start_x;
+	int			guy_y;
+	int			guy_x;
 	t_sprites	sprites;
 	char		**map;
 	t_element	*element;
 	int			collectibles;
 	char		*mov;
+	int			end;
 }				t_alldata;
 
 int		create_trgb(int t, int r, int g, int b);
@@ -114,10 +123,14 @@ void	put_elements(t_alldata *all, int x, int y);
 
 // elements
 int	char_colision(t_alldata *all, int count);
+void	free_elements(t_alldata *all);
+
+// collision
+int	char_colision(t_alldata *all, int count);
 
 // sprites
 void	change_sprite(char *file1, char *file2, t_alldata *all);
-void	horizontal_char_sprite(char *file1, char *file2, int mov, t_alldata *all);
-void	vertical_char_sprite(char *file1, char *file2, int mov, t_alldata *all);
+void	hor_char_sprite(char *file1, char *file2, int mov, t_alldata *all);
+void	vert_char_sprite(char *file1, char *file2, int mov, t_alldata *all);
 
 #endif

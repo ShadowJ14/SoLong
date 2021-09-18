@@ -25,7 +25,7 @@ void	*mlx_new_window(t_xvar *xvar,int size_x,int size_y,char *title)
 	XSetWindowAttributes	xswa;
 	XGCValues				xgcv;
 
-	xswa.background_pixel = 0;
+	xswa.ground_pixel = 0;
 	xswa.border_pixel = -1;
 	xswa.colormap = xvar->cmap;
 	/*
