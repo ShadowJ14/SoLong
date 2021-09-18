@@ -6,7 +6,7 @@
 /*   By: lprates <lprates@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/11 19:41:21 by lprates           #+#    #+#             */
-/*   Updated: 2021/09/12 21:44:29 by lprates          ###   ########.fr       */
+/*   Updated: 2021/09/18 05:00:52 by lprates          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,52 +15,28 @@
 #include <stdio.h>
 #include "solong.h"
 
-static void	change_sprite(char *file1, char *file2, t_alldata *all)
-{
-	int			xpm_height;
-	int			xpm_width;
-	static int	count = 0;
-
-	if (count == 0)
-	{
-		all->sprites.main_char = mlx_xpm_file_to_image(all->mlxwin.mlx, file1, &xpm_height, &xpm_width);
-		count = 1;
-	}
-	else if (count == 1)
-	{
-		all->sprites.main_char = mlx_xpm_file_to_image(all->mlxwin.mlx, file2, &xpm_height, &xpm_width);
-		count = 0;
-	}
-	return ;
-}
-
 int             key_hook(int keycode, t_alldata *all)
 {
+	static int mov = 0;
+
     printf("Hello, this is key: %i\n", keycode);
 	if (keycode == 53 || keycode == 65307)
 	{
 		mlx_destroy_window(all->mlxwin.mlx, all->mlxwin.win);
 		exit(1);
 	}
-	if (keycode == 13 || keycode == 119)
+	if (char_colision(all, keycode))
 	{
-		all->char_start_y -= 32;
-		change_sprite(CHAR_UP1, CHAR_UP2, all);
-	}
-	if (keycode == 1 || keycode == 115)
-	{
-		all->char_start_y += 32;
-		change_sprite(CHAR_DOWN1, CHAR_DOWN2, all);
-	}
-	if (keycode == 0 || keycode == 97)
-	{
-		all->char_start_x -= 32;
-		change_sprite(CHAR_LEFT1, CHAR_LEFT2, all);
-	}
-	if (keycode == 2 || keycode == 100)
-	{
-		all->char_start_x += 32;
-		change_sprite(CHAR_RIGHT1, CHAR_RIGHT2, all);
+		if (keycode == 13 || keycode == 119)
+			vertical_char_sprite(CHAR_UP1, CHAR_UP2, -32, all);
+		if (keycode == 1 || keycode == 115)
+			vertical_char_sprite(CHAR_DOWN1, CHAR_DOWN2, 32, all);
+		if (keycode == 0 || keycode == 97)
+			horizontal_char_sprite(CHAR_LEFT1, CHAR_LEFT2, -32, all);
+		if (keycode == 2 || keycode == 100)
+			horizontal_char_sprite(CHAR_RIGHT1, CHAR_RIGHT2, 32, all);
+		printf("Number of movements: %i\n", ++mov);
+		all->mov = ft_itoa(mov);
 	}
 	return (0);
 }
@@ -87,8 +63,8 @@ int	render_next_frame(t_alldata *all)
 		}
 		i += 32;
 	}
-		mlx_put_image_to_window(all->mlxwin.mlx, all->mlxwin.win, all->sprites.main_char, all->char_start_x, all->char_start_y);
-	//mlx_put_image_to_window(all->mlxwin.mlx, all->mlxwin.win, background, 0, 0);
+	mlx_put_image_to_window(all->mlxwin.mlx, all->mlxwin.win, all->sprites.main_char, all->char_start_x, all->char_start_y);
+	mlx_string_put(all->mlxwin.mlx, all->mlxwin.win, 5, 15, 0, all->mov);
 	return (0);
 }
 
@@ -100,10 +76,9 @@ int	ft_close(t_alldata *all)
 int	main(int argc, char *argv[])
 {
 	t_alldata *all;
-	//int xpm_height;
-	//int xpm_width;
 
 	all = malloc(sizeof(t_alldata));
+	all->collectibles = 0;
 	ft_handle_args(all, argc, argv[1]);
 	for(int i = 0; i < all->v_size; i++)
 		for (int j = 0; j < all->h_size; j++)
@@ -121,7 +96,6 @@ int	main(int argc, char *argv[])
 	// loop that listens to key press events
 	mlx_key_hook(all->mlxwin.win, key_hook, all);
 	mlx_hook(all->mlxwin.win, 17, 0L, ft_close, all);
-	//mlx_put_image_to_window(all->mlxwin.mlx, all->mlxwin.win, all->img.img, 0, 0);
 	mlx_loop(all->mlxwin.mlx);
 	return (0);
 }

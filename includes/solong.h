@@ -6,7 +6,7 @@
 /*   By: lprates <lprates@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 12:31:49 by lprates           #+#    #+#             */
-/*   Updated: 2021/09/12 20:34:56 by lprates          ###   ########.fr       */
+/*   Updated: 2021/09/18 05:03:33 by lprates          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@
 # define END_SPRITE "./sprites/portal.xpm"
 # define COLLECT "./sprites/ice-cream.xpm"
 # define ELEMENTS "1CEP"
+# define END_MESSAGE "Congraturation! This story is Happy End! Thank You."
 
 typedef struct  s_vars {
     void        *mlx;
@@ -80,6 +81,8 @@ typedef struct	s_alldata{
 	t_sprites	sprites;
 	char		**map;
 	t_element	*element;
+	int			collectibles;
+	char		*mov;
 }				t_alldata;
 
 int		create_trgb(int t, int r, int g, int b);
@@ -91,6 +94,9 @@ int		add_shade(double distance, int color);
 int		get_oposite(int color);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int		check_filename_ext(const char *filename, const char *ext);
+
+// solong
+void	change_sprite(char *file1, char *file2, t_alldata *all);
 
 // error hadling
 void	error_handler(int error);
@@ -105,5 +111,13 @@ void	ft_repeat_init(t_alldata *all);
 
 // map
 void	put_elements(t_alldata *all, int x, int y);
+
+// elements
+int	char_colision(t_alldata *all, int count);
+
+// sprites
+void	change_sprite(char *file1, char *file2, t_alldata *all);
+void	horizontal_char_sprite(char *file1, char *file2, int mov, t_alldata *all);
+void	vertical_char_sprite(char *file1, char *file2, int mov, t_alldata *all);
 
 #endif
