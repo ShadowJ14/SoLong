@@ -6,7 +6,7 @@
 /*   By: lprates <lprates@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/11 19:38:07 by lprates           #+#    #+#             */
-/*   Updated: 2021/09/18 15:23:57 by lprates          ###   ########.fr       */
+/*   Updated: 2021/09/25 17:08:50 by lprates          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,12 @@ int	check_filename_ext(const char *filename, const char *ext)
 	return (0);
 }
 
+void	check_map(t_alldata *all)
+{
+	if (all->h_size == (all->v_size + 1))
+		error_handler(all, 5);
+}
+
 int	parse_map(t_alldata *all, int fd)
 {
 	int		finish;
@@ -31,6 +37,8 @@ int	parse_map(t_alldata *all, int fd)
 
 	all->v_size = 0;
 	all->map = malloc(sizeof(char **) * 1);
+	if (!all->map)
+		error_handler(all, 6);
 	finish = get_next_line(fd, &all->map[all->v_size]);
 	while (finish == 1)
 	{
@@ -38,9 +46,13 @@ int	parse_map(t_alldata *all, int fd)
 		all->v_size++;
 		nsi = sizeof(char **) * (all->v_size + 1);
 		if (finish == -1)
-			error_handler(4);
+			error_handler(all, 4);
 		all->map = ft_realloc((void **)&all->map, nsi);
+		if (!all->map)
+			error_handler(all, 6);
 		finish = get_next_line(fd, &all->map[all->v_size]);
 	}
+	close(fd);
+	check_map(all);
 	return (1);
 }

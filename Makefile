@@ -1,4 +1,4 @@
-NAME = ./solong
+NAME = ./so_long
 rwildcard=$(foreach d,$(wildcard $(1:=/*)),$(call rwildcard,$d,$2) $(filter $(subst *,%,$2),$d))
 INCLUDE_DIRS := includes
 INCLUDES := $(addprefix -I, $(INCLUDE_DIRS))
@@ -6,6 +6,7 @@ SRC = $(call rwildcard,src,*.c)
 OBJ := $(SRC:.c=.o)
 RM = rm -f
 MAKE = make
+CFLAGS = -Wall -Wextra -Werror
 
 all: libft.a minilibx $(NAME) 
 
@@ -17,10 +18,10 @@ minilibx:
 	$(MAKE) -C libs/mlx/
 
 %.o: %.c
-	$(CC) -Ilibs/mlx -c $^ -o $@ $(INCLUDES)
+	$(CC) $(CFLAGS) -Ilibs/mlx -c $^ -o $@ $(INCLUDES)
 
 $(NAME): $(OBJ)
-	$(CC) $^ -Llibs/mlx/ -lmlx -framework OpenGL -framework AppKit -Llibs/libft/ -lft -o $@ $(INCLUDES)
+	$(CC) $(CFLAGS) $^ -Llibs/mlx/ -lmlx -framework OpenGL -framework AppKit -Llibs/libft/ -lft -o $@ $(INCLUDES)
 
 
 clean:

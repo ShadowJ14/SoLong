@@ -6,7 +6,7 @@
 /*   By: lprates <lprates@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 20:59:26 by lprates           #+#    #+#             */
-/*   Updated: 2021/09/11 21:23:01 by lprates          ###   ########.fr       */
+/*   Updated: 2021/09/25 16:03:08 by lprates          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ char	*trim_keep(char *keep)
 		free(keep);
 		return (0);
 	}
-	if (!(tmp = malloc(sizeof(char) * ((gnl_strlen(keep) - i) + 1))))
+	tmp = malloc(sizeof(char) * ((gnl_strlen(keep) - i) + 1));
+	if (!tmp)
 		return (0);
 	i++;
 	while (keep[i])
@@ -49,7 +50,8 @@ char	*check_keep(char *keep)
 		return (0);
 	while (keep[i] && keep[i] != '\n')
 		i++;
-	if (!(tmp = malloc(sizeof(char) * (i + 1))))
+	tmp = malloc(sizeof(char) * (i + 1));
+	if (!tmp)
 		return (0);
 	i = 0;
 	while (keep[i] && keep[i] != '\n')
@@ -61,31 +63,31 @@ char	*check_keep(char *keep)
 	return (tmp);
 }
 
-int		get_next_line(int fd, char **line)
+int	get_next_line(int fd, char **line)
 {
 	static char		*keep[1024];
-	char			*buffer;
-	int				reader;
+	t_params		params;
 
-	reader = 1;
+	params.reader = 1;
 	if ((read(fd, 0, 0) == -1) || !line || BUFFER_SIZE <= 0)
 		return (-1);
-	if (!(buffer = malloc(BUFFER_SIZE + 1)))
+	params.buffer = malloc(BUFFER_SIZE + 1);
+	if (!params.buffer)
 		return (-1);
-	while (!has_line(keep[fd]) && reader != 0)
+	while (!has_line(keep[fd]) && params.reader != 0)
 	{
-		if ((reader = read(fd, buffer, BUFFER_SIZE)) == -1)
-		{
-			free(buffer);
-			return (-1);
-		}
-		buffer[reader] = 0;
-		keep[fd] = gnl_strjoin(keep[fd], buffer);
+		params.reader = read(fd, params.buffer, BUFFER_SIZE);
+		if (params.reader == -1)
+			break ;
+		params.buffer[params.reader] = 0;
+		keep[fd] = gnl_strjoin(keep[fd], params.buffer);
 	}
-	free(buffer);
+	free(params.buffer);
+	if (params.reader == -1)
+		return (-1);
 	*line = check_keep(keep[fd]);
 	keep[fd] = trim_keep(keep[fd]);
-	if (reader == 0)
+	if (params.reader == 0)
 		return (0);
 	return (1);
 }

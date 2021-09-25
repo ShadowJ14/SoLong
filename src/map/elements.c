@@ -6,7 +6,7 @@
 /*   By: lprates <lprates@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/12 17:35:36 by lprates           #+#    #+#             */
-/*   Updated: 2021/09/18 15:21:03 by lprates          ###   ########.fr       */
+/*   Updated: 2021/09/25 16:35:17 by lprates          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,20 @@ void	end_game(t_alldata *all)
 			all->end = 1;
 			ft_putstr(END_MESSAGE);
 		}
-		mlx_string_put(MLX_PTR, WIN_PTR, 50, 15, 0, END_MESSAGE);
+		mlx_string_put(all->mlx, all->win, 50, 15, 0, END_MESSAGE);
 		if (all->end == 2)
-		{
-			free_elements(all);
-			exit(1);
-		}
+			ft_close(all, 0);
 	}
+}
+
+void	put_to_window(t_alldata *all, int count, int x, int y)
+{
+	if (all->element[count].type == 'C')
+		mlx_put_image_to_window(all->mlx, all->win, all->sprt.clt, x, y);
+	if (all->element[count].type == '1')
+		mlx_put_image_to_window(all->mlx, all->win, all->sprt.wall, x, y);
+	if (all->element[count].type == 'E')
+		mlx_put_image_to_window(all->mlx, all->win, all->sprt.end_portal, x, y);
 }
 
 void	put_elements(t_alldata *all, int x, int y)
@@ -58,12 +65,7 @@ void	put_elements(t_alldata *all, int x, int y)
 				if (all->element[count].type == 'E')
 					end_game(all);
 			}
-			if (all->element[count].type == 'C')
-				PUT_IMG_TO_WIN(MLX_PTR, WIN_PTR, all->sprites.collect, x, y);
-			if (all->element[count].type == '1')
-				PUT_IMG_TO_WIN(MLX_PTR, WIN_PTR, all->sprites.wall, x, y);
-			if (all->element[count].type == 'E')
-				PUT_IMG_TO_WIN(MLX_PTR, WIN_PTR, all->sprites.end_portal, x, y);
+			put_to_window(all, count, x, y);
 			break ;
 		}
 		count++;

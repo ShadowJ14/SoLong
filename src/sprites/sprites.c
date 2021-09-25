@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sprites.c                                          :+:      :+:    :+:   */
+/*   sprt.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lprates <lprates@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/18 04:12:24 by lprates           #+#    #+#             */
-/*   Updated: 2021/09/18 15:19:52 by lprates          ###   ########.fr       */
+/*   Updated: 2021/09/25 15:31:02 by lprates          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ void	change_sprite(char *file1, char *file2, t_alldata *all)
 	static int	count = 0;
 
 	if (count % 2 == 0)
-		all->sprites.guy = XPM_TO_IMG(MLX_PTR, file1, &xpm_h, &xpm_w);
+		all->sprt.guy = mlx_xpm_file_to_image(all->mlx, file1, &xpm_h, &xpm_w);
 	if (count % 2 != 0)
-		all->sprites.guy = XPM_TO_IMG(MLX_PTR, file2, &xpm_h, &xpm_w);
+		all->sprt.guy = mlx_xpm_file_to_image(all->mlx, file2, &xpm_h, &xpm_w);
 	count++;
 }
 

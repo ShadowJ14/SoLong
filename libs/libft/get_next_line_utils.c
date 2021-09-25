@@ -6,7 +6,7 @@
 /*   By: lprates <lprates@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 21:00:11 by lprates           #+#    #+#             */
-/*   Updated: 2021/09/11 21:22:37 by lprates          ###   ########.fr       */
+/*   Updated: 2021/09/25 16:05:06 by lprates          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 size_t	gnl_strlen(const char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!str)
@@ -26,10 +26,10 @@ size_t	gnl_strlen(const char *str)
 	return (i);
 }
 
-static char		*loc_strcat(char *dest, char *src)
+static char	*loc_strcat(char *dest, char *src)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	j = 0;
@@ -47,13 +47,14 @@ static char		*loc_strcat(char *dest, char *src)
 	return (dest);
 }
 
-char		*gnl_strjoin(char const *s1, char const *s2)
+char	*gnl_strjoin(char const *s1, char const *s2)
 {
-	char *join;
+	char	*join;
 
 	if (!s1 && !s2)
 		return (NULL);
-	if (!(join = malloc(gnl_strlen(s1) + gnl_strlen(s2) + 1)))
+	join = malloc(gnl_strlen(s1) + gnl_strlen(s2) + 1);
+	if (!join)
 		return (NULL);
 	join[0] = 0;
 	if (s1)
@@ -64,7 +65,7 @@ char		*gnl_strjoin(char const *s1, char const *s2)
 	return (join);
 }
 
-int			has_line(char *keep)
+int	has_line(char *keep)
 {
 	if (!keep)
 		return (0);

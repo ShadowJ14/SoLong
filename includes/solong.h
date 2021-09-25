@@ -6,7 +6,7 @@
 /*   By: lprates <lprates@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 12:31:49 by lprates           #+#    #+#             */
-/*   Updated: 2021/09/18 15:18:57 by lprates          ###   ########.fr       */
+/*   Updated: 2021/09/25 17:08:57 by lprates          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,56 +44,50 @@
 # define S 1
 # define A 0
 # define D 2
-# define MLX_PTR all->mlxwin.mlx
-# define WIN_PTR all->mlxwin.win
-# define PUT_IMG_TO_WIN mlx_put_image_to_window
-# define XPM_TO_IMG mlx_xpm_file_to_image
 
-typedef struct  s_vars {
-    void        *mlx;
-    void        *win;
-}               t_vars;
+typedef struct s_data {
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}				t_data;
 
-typedef struct  s_data {
-    void        *img;
-    char        *addr;
-    int         bits_per_pixel;
-    int         line_length;
-    int         endian;
-}               t_data;
-
-typedef struct	s_sprites
+typedef struct s_sprites
 {
 	void	*ground;
 	void	*wall;
 	void	*guy;
-	void	*collect;
+	void	*clt;
 	void	*end_portal;
 }				t_sprites;
 
-typedef struct	s_element
+typedef struct s_element
 {
 	char	type;
 	int		posx;
 	int		posy;
 }				t_element;
 
-typedef struct	s_alldata{
-	t_vars		mlxwin;
+typedef struct s_alldata{
+	void		*mlx;
+	void		*win;
 	t_data		img;
 	int			color;
 	int			v_size;
-	int 		h_size;
+	int			h_size;
 	int			guy_y;
 	int			guy_x;
-	t_sprites	sprites;
+	t_sprites	sprt;
 	char		**map;
 	t_element	*element;
 	int			collectibles;
 	char		*mov;
 	int			end;
+	int			end_sprite;
 }				t_alldata;
 
+//pixel manip
 int		create_trgb(int t, int r, int g, int b);
 int		get_t(int trgb);
 int		get_r(int trgb);
@@ -102,35 +96,37 @@ int		get_b(int trgb);
 int		add_shade(double distance, int color);
 int		get_oposite(int color);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
-int		check_filename_ext(const char *filename, const char *ext);
 
 // solong
 void	change_sprite(char *file1, char *file2, t_alldata *all);
+int		ft_close(t_alldata *all, int code);
 
-// error hadling
-void	error_handler(int error);
-
-// aux
-int		parse_map(t_alldata *all, int fd);
+// errors
+// error handling
+void	error_handler(t_alldata *all, int error);
 
 // init
 void	ft_handle_args(t_alldata *all, int argc, char *argv);
 void	ft_init(t_alldata *all);
 void	ft_repeat_init(t_alldata *all);
+void	ft_grab_elements(t_alldata *all);
 
-// map
+// map dir
+// elements
+void	free_elements(t_alldata *all);
 void	put_elements(t_alldata *all, int x, int y);
 
-// elements
-int	char_colision(t_alldata *all, int count);
-void	free_elements(t_alldata *all);
+// aux
+int		parse_map(t_alldata *all, int fd);
+int		check_filename_ext(const char *filename, const char *ext);
 
-// collision
-int	char_colision(t_alldata *all, int count);
-
+// sprites dir
 // sprites
 void	change_sprite(char *file1, char *file2, t_alldata *all);
 void	hor_char_sprite(char *file1, char *file2, int mov, t_alldata *all);
 void	vert_char_sprite(char *file1, char *file2, int mov, t_alldata *all);
+
+// collision
+int		char_colision(t_alldata *all, int count);
 
 #endif

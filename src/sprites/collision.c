@@ -6,7 +6,7 @@
 /*   By: lprates <lprates@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/18 12:18:34 by lprates           #+#    #+#             */
-/*   Updated: 2021/09/18 15:20:21 by lprates          ###   ########.fr       */
+/*   Updated: 2021/09/25 16:31:16 by lprates          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ int	char_colision(t_alldata *all, int keycode)
 	count = -1;
 	while (all->element[++count].type != 0)
 	{
-		if (all->element[count].type == '1')
+		if (all->element[count].type == '1'
+			|| (all->element[count].type == 'E' && all->collectibles))
 		{
 			if (all->guy_x == all->element[count].posx)
 				if (!vert_collision(all, count, keycode))

@@ -6,7 +6,7 @@
 /*   By: lprates <lprates@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 21:00:07 by lprates           #+#    #+#             */
-/*   Updated: 2021/09/11 21:23:26 by lprates          ###   ########.fr       */
+/*   Updated: 2021/09/25 16:03:53 by lprates          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,12 @@
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
+
+typedef struct s_params
+{
+	char	*buffer;
+	int		reader;
+}				t_params;
 
 int				get_next_line(int fd, char **line);
 unsigned int	ft_strlcpy(char *dest, char *src, unsigned int size);
