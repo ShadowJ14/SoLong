@@ -6,7 +6,7 @@
 /*   By: lprates <lprates@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 10:55:05 by lprates           #+#    #+#             */
-/*   Updated: 2021/09/25 17:55:53 by lprates          ###   ########.fr       */
+/*   Updated: 2021/09/25 20:27:21 by lprates          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	ft_assign_element(t_alldata *all, int x, int y, int *count)
 	if (all->element[*count].type == 'E' && all->end_sprite == 0)
 		all->end_sprite = 1;
 	(*count)++;
-	all->element = ft_realloc((void **)&all->element,
+	all->element = ft_realloc((void *)all->element, sizeof(t_element) * (*count),
 			sizeof(t_element) * (*count + 1));
 	if (!all->element)
 		error_handler(all, 6);
@@ -53,12 +53,12 @@ void	ft_grab_elements(t_alldata *all)
 	int	y;
 	int	count;
 
-	all->element = malloc(sizeof(t_element *) * 1);
+	all->element = malloc(sizeof(t_element) * 1);
 	if (!all->element)
 		error_handler(all, 6);
 	y = -1;
 	count = 0;
-	while (++y <= all->v_size)
+	while (++y < all->v_size)
 	{
 		x = -1;
 		while (++x < all->h_size)

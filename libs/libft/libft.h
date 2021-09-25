@@ -6,7 +6,7 @@
 /*   By: lprates <lprates@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 00:07:59 by lprates           #+#    #+#             */
-/*   Updated: 2021/09/11 22:01:06 by lprates          ###   ########.fr       */
+/*   Updated: 2021/09/25 20:19:23 by lprates          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,6 @@ void			ft_lstiter(t_list *lst, void (*f)(void *));
 t_list			*ft_lstmap(t_list *lst, void *(*f)(void *),
 					void (*del)(void *));
 int				get_next_line(int fd, char **line);
-void			*ft_realloc(void **src, size_t size);
+void			*ft_realloc(void *ptr, size_t orig_size, size_t new_size);
 
 #endif

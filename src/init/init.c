@@ -6,7 +6,7 @@
 /*   By: lprates <lprates@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/11 23:19:37 by lprates           #+#    #+#             */
-/*   Updated: 2021/09/25 17:39:40 by lprates          ###   ########.fr       */
+/*   Updated: 2021/09/25 19:14:23 by lprates          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	ft_init(t_alldata *all)
 	int	placeholder_w;
 
 	all->h_size = (all->h_size) * 32;
-	all->v_size = (all->v_size + 1) * 32;
+	all->v_size = (all->v_size) * 32;
 	all->mov = ft_itoa(0);
 	all->end = 0;
 	all->mlx = mlx_init();
